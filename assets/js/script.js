@@ -1,28 +1,35 @@
-/*manipular o slider*/
+/* Manipular os sliders */
 
-var slideIndex = 0;
-showSlides();
+let slideIndex = 0;
+
+document.addEventListener("DOMContentLoaded", function() {
+    showSlides();
+});
 
 function showSlides() {
-    var i;
-    var slides = document.getElementsByClassName("slide");
-    var pointers = document.getElementsByClassName("pointer");
+    const slides = document.querySelectorAll('.banner .slide');
+    const pointers = document.querySelectorAll('.banner .pointer');
 
-    for (i = 0; i < slides.length; i++) {
-        slides[i].style.display = "none";
-    }
+    // Esconder todos os slides
+    slides.forEach(slide => {
+        slide.style.display = "none";
+    });
 
+    // Remover a classe 'active' de todos os pointers
+    pointers.forEach(pointer => {
+        pointer.classList.remove("active");
+    });
+
+    // Incrementar o índice do slide
     slideIndex++;
-    if (slideIndex > slides.length) {
-        slideIndex = 1;
+    if (slideIndex >= slides.length) {
+        slideIndex = 0; // Volta ao primeiro slide
     }
 
-    for (i = 0; i < pointers.length; i++) {
-        pointers[i].className = pointers[i].className.replace("active", "");
-    }
+    // Mostrar o slide atual e marcar o pointer correspondente
+    slides[slideIndex].style.display = "block";
+    pointers[slideIndex].classList.add("active");
 
-    slides[slideIndex - 1].style.display = "block";
-    pointers[slideIndex - 1].className += " active";
-
+    // Chamar a função novamente após 3 segundos
     setTimeout(showSlides, 3000);
 }
